@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28407.52
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DebugLog", "DebugLog\DebugLog.csproj", "{791657D8-0C5C-4FE6-87D6-D1FB29260F36}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kitsu.Debug", "Kitsu.Debug\Kitsu.Debug.csproj", "{98291B3F-49BA-4CD9-9725-F3628B7F587E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{791657D8-0C5C-4FE6-87D6-D1FB29260F36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{791657D8-0C5C-4FE6-87D6-D1FB29260F36}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{791657D8-0C5C-4FE6-87D6-D1FB29260F36}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{791657D8-0C5C-4FE6-87D6-D1FB29260F36}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98291B3F-49BA-4CD9-9725-F3628B7F587E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98291B3F-49BA-4CD9-9725-F3628B7F587E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98291B3F-49BA-4CD9-9725-F3628B7F587E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98291B3F-49BA-4CD9-9725-F3628B7F587E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9ACFAB54-F1BA-489E-85CD-13E7B211CCF0}
+	EndGlobalSection
+EndGlobal
