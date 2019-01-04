@@ -29,12 +29,15 @@ namespace Kitsu.Debug
         private bool draggable = true;
         private string lastLine = string.Empty;
 
-
         private void Awake()
         {
             DontDestroyOnLoad(gameObject);
             UnityEngine.Debug.Log("Ingame Log Initiated!");
             instance = this;
+            autoScroll = Main.Config["AutoScroll"];
+            autoError = Main.Config["AutoError"];
+            resizable = Main.Config["ResizableLog"];
+            draggable = Main.Config["DraggableLog"];
             arrow = new Texture2D(50, 50);
             byte[] data = File.ReadAllBytes(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\arrow.png");
             arrow.LoadImage(data);
