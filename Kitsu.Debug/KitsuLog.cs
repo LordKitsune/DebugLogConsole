@@ -13,6 +13,8 @@ namespace Kitsu.Debug
 {
     public class KitsuLog : MonoBehaviour
     {
+        public static AssetBundle bundle;
+        private GUISkin mySkin;
         public static KitsuLog instance;
         private Texture2D arrow;
         private bool isVisible = false;
@@ -42,6 +44,15 @@ namespace Kitsu.Debug
             byte[] data = File.ReadAllBytes(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\arrow.png");
             arrow.LoadImage(data);
             arrow.Apply();
+            StartCoroutine(loadAssets());
+        }
+
+        private IEnumerator loadAssets()
+        {
+            AssetBundleCreateRequest request = AssetBundle.LoadFromFileAsync(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location).Replace('\\', '/') + "/debug.unity3d");
+            yield return request;
+            bundle = request.assetBundle;
+            mySkin = bundle.LoadAsset<GUISkin>("scifi_skin");
         }
 
         public static void Log(string line, LogType type = LogType.Log)
@@ -80,7 +91,7 @@ namespace Kitsu.Debug
 
         private bool ToggleButton(bool input, string text, float size = 150f)
         {
-            string subtext = string.Format("\n<color={0}><b>{1}</b></color>", input ? "green" : "red", input.ToString());
+            string subtext = string.Format("\n<color=#{0}><b>{1}</b></color>", input ? "004b00" : "ff0000", input.ToString());
             if (GUILayout.Button(text + subtext, GUILayout.Width(size)))
                 input = !input;
             return input;
@@ -88,11 +99,13 @@ namespace Kitsu.Debug
 
         private void OnGUI()
         {
+            if (mySkin)
+                GUI.skin = mySkin;
             if (isVisible)
             {
                 windowRect = GUILayout.Window(200, windowRect, (id) =>
                 {
-                    GUILayout.Box("<b>Options</b>");
+                    GUILayout.Space(5f);
                     GUILayout.BeginHorizontal();
                     autoError = ToggleButton(autoError, "Auto Error");
                     GUILayout.FlexibleSpace();
@@ -102,10 +115,13 @@ namespace Kitsu.Debug
                     GUILayout.FlexibleSpace();
                     collapse = ToggleButton(collapse, "Collapse Messages");
                     GUILayout.EndHorizontal();
-                    GUILayout.FlexibleSpace();
                     GUI.skin.label.wordWrap = true;
-                    GUILayout.Box("<b>Log Feed</b>");
-                    scrollPosition = GUILayout.BeginScrollView(scrollPosition, false, true);
+                    GUILayout.BeginHorizontal();
+                    GUILayout.FlexibleSpace();
+                    GUILayout.Label("<size=20>Log Feed</size>");
+                    GUILayout.FlexibleSpace();
+                    GUILayout.EndHorizontal();
+                    scrollPosition = GUILayout.BeginScrollView(scrollPosition, false, true, GUILayout.Height(windowRect.height / 5 * 3));
                     if (scrollPosition.y < Mathf.Infinity)
                         autoScroll = false;
                     
@@ -125,9 +141,10 @@ namespace Kitsu.Debug
                         
                     }
                     GUILayout.EndScrollView();
+                    GUILayout.FlexibleSpace();
                     if (draggable)
                         GUI.DragWindow();
-                }, "<b>Debug Log</b>");
+                }, "Options");
                 if (resizable)
                 {
                     resizeWindow();

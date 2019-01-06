@@ -45,15 +45,22 @@ namespace Kitsu.Debug
             {
                 Config.Add(node.Name, Convert.ToBoolean(node.InnerText));
             }
-            string path = dir + "\\DebugLog.exe";
-            if (Config["EnableExternalConsole"])
+            try
             {
-                ProcessStartInfo p = new ProcessStartInfo(path);
-                p.UseShellExecute = false;
-                p.RedirectStandardInput = true;
-                debugLog = Process.Start(p);
-                debugLog.StandardInput.AutoFlush = true;
+                string path = dir + "\\DebugLog.exe";
+                if (Config["EnableExternalConsole"])
+                {
+                    ProcessStartInfo p = new ProcessStartInfo(path);
+                    p.UseShellExecute = false;
+                    p.RedirectStandardInput = true;
+                    debugLog = Process.Start(p);
+                }
             }
+            catch(Exception ex)
+            {
+                UnityEngine.Debug.LogException(ex);
+            }
+            
             Application.logMessageReceivedThreaded += (log, stacktrace, type) =>
             {
                 int code = 0;

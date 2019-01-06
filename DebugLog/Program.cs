@@ -4,6 +4,7 @@ using System.Linq;
 using System.IO;
 using System.Text;
 using System.Reflection;
+using System.Windows.Forms;
 using System.Diagnostics;
 
 
@@ -13,9 +14,12 @@ namespace Kitsu.DebugLog
     {
 
         static string lastString = string.Empty;
+        [STAThread]
         public static void Main(string[] args)
         {
-            Process[] games = Process.GetProcessesByName("Subnautica");
+            MainForm.reader = Console.In;
+            Application.Run(new MainForm());
+            /*Process[] games = Process.GetProcessesByName("Subnautica");
             Process subnautica = games.First();
             subnautica.EnableRaisingEvents = true;
             subnautica.Exited += ((sender, data) =>
@@ -63,7 +67,7 @@ namespace Kitsu.DebugLog
                     Console.ForegroundColor = ConsoleColor.DarkRed;
                     Console.WriteLine("[LogError]Unable to parse Log");
                 }
-            }
+            }*/
         }
     }
 }
