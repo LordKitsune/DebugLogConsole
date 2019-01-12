@@ -54,6 +54,7 @@ namespace Kitsu.DebugLog
 
         private void SetText(string text)
         {
+            if (text == string.Empty || text.Length <= 1) return;
             try
             {
                 int errorCode = 0;
@@ -113,6 +114,11 @@ namespace Kitsu.DebugLog
                 }
             });
             listener.Start();
+        }
+
+        private void logBox_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
